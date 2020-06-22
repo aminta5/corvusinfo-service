@@ -1,5 +1,6 @@
 package com.corvusinfo.registrationapi.testData;
 
+import com.corvusinfo.registrationapi.model.Account;
 import com.corvusinfo.registrationapi.model.Registration;
 import com.corvusinfo.registrationapi.repositories.RegistrationRepository;
 import com.corvusinfo.registrationapi.services.AccountService;
@@ -25,9 +26,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        accountService.saveAccount("filip@corvus.com");
-        accountService.saveAccount("general@test.com");
-        accountService.saveAccount("travel@voyage.com");
+        Account acc1 = new Account("filip@corvus.com");
+        Account acc2 = new Account("general@test.com");
+        Account acc3 = new Account("travel@voyage.com");
+        accountService.saveAccount(acc1);
+        accountService.saveAccount(acc2);
+        accountService.saveAccount(acc3);
         registrationRepository.saveAll(getRegistrations());
     }
 

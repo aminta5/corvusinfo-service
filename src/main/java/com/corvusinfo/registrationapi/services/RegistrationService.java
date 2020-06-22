@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegistrationService {
@@ -21,7 +22,13 @@ public class RegistrationService {
         return regs;
     }
 
-    public Registration save(Registration registration){
-        return regRepo.save(registration);
+    public Registration saveRegistration(Registration registration){
+        List<Registration> registrations = new ArrayList<>();
+        regRepo.findAll().forEach(registrations::add);
+        Optional<Registration> optionalReg = registrations.stream().filter(r -> r.getRegistration().equals(registration.getRegistration())).findFirst();
+        if(!optionalReg.isPresent()){
+            return regRepo.save(registration);
+        }
+        return new Registration();
     }
 }

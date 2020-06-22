@@ -19,4 +19,8 @@ public class Account {
 
     @Column
     private String password;
+
+    public Account(String accountId){
+        this.accountId = accountId;
+    }
 }

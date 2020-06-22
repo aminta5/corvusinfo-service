@@ -14,18 +14,13 @@ import java.time.LocalDate;
 @Data
 public class Registration {
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;*/
 
-    @Column
+    @Id
     private String registration;
 
     @Column
     private LocalDate date;
-
-    public Registration(String registration, LocalDate date) {
-        this.registration= registration;
-        this.date = date;
-    }
 }
