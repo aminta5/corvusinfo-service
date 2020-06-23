@@ -15,6 +15,7 @@ import javax.persistence.Id;
 @Data
 public class Account {
     @Id
+    @Column
     private String accountId;
 
     @Column

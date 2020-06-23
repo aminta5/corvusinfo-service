@@ -35,4 +35,8 @@ public class AccountService {
         return new Account();
 
     }
+
+    public Account findAccountWithId(String id){
+        return accountRepository.findAccountById(id).orElseThrow(() -> new RuntimeException("Account with this id not found"));
+    }
 }
