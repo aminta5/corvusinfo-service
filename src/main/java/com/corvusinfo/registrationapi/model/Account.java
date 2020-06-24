@@ -21,6 +21,9 @@ public class Account {
     @Column
     private String password;
 
+    @Column
+    private int registrationCounter;
+
     public Account(String accountId){
         this.accountId = accountId;
     }
