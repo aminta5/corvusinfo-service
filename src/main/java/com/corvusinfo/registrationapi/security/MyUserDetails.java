@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class MyAccountDetails implements UserDetails {
+public class MyUserDetails implements UserDetails {
     private String id;
     private String password;
 
-    public MyAccountDetails(Account account) {
+    public MyUserDetails(Account account) {
         this.id = account.getAccountId();
         this.password = account.getPassword();
     }

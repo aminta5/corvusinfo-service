@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyAccountDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
     private final AccountService accountService;
 
-    public MyAccountDetailsService(AccountService accountService) {
+    public MyUserDetailsService(AccountService accountService) {
         this.accountService = accountService;
     }
 
@@ -21,6 +21,6 @@ public class MyAccountDetailsService implements UserDetailsService {
         if(account == null){
             throw new RuntimeException(id + " not found");
         }
-        return new MyAccountDetails(account);
+        return new MyUserDetails(account);
     }
 }

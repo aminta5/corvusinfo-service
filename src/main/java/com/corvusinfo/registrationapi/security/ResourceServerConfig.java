@@ -11,22 +11,25 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    private final DefaultTokenServices tokenServices;
+    //private final DefaultTokenServices tokenServices;
 
-    public ResourceServerConfig(DefaultTokenServices tokenServices) {
+   /* public ResourceServerConfig(DefaultTokenServices tokenServices) {
         this.tokenServices = tokenServices;
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenServices(tokenServices);
-    }
+    }*/
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().sameOrigin();
         http.anonymous().and().authorizeRequests()
-                .antMatchers("/account").authenticated()
                 .antMatchers("/register").authenticated()
+                .antMatchers("/account").permitAll()
+                .antMatchers("/oauth/token*").permitAll()
+              //  .antMatchers("/console/**").permitAll()
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 }
