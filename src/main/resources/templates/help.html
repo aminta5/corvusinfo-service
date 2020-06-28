@@ -5,6 +5,79 @@
     <title>Help</title>
 </head>
 <body>
-    Instruction Page
+    <div class="container">
+        <h1> Instructions Page</h1>
+        <div>
+            <h2>Installation</h2>
+            <p>Take the prepared .war file and place it in the webapps folder in tomcat.</p>
+        </div>
+        <div>
+            <h2>Running</h2>
+            <p>Run the server.
+                The default port of the application is 8080
+                On starting the applications 4 user accounts get generated automatically.
+                The data in the embedded database exists only until the application is running
+            </p>
+        </div>
+        <div>
+            <h2>Usage</h2>
+            <p>The application consists of 4 services plus one service for issuing jwt tokens and one instruction page.
+                The URI’s of the four services are:
+                <ol>
+                    <li><strong>http://localhost:8080/registration-api/account</strong></li>
+            <p>POST request
+                This service creates user account and it is not authorized
+                In the request body send a value for accountId, which is in email form.
+                Ex. {
+                “accointId”:”test@corvus.com
+                }
+                The password is generated automatically
+                After sending the request the user gets a response with the the accountId and the password
+                AccountId must be unique if it is not the user account won’t get created, and the user will get a message that the account with the same accountId already exists.</p>
+            <li><strong>http://localhost:8080/registration-api/register</strong></li>
+            <p>POST request
+                This service creates an entry in the database for vehicle registration code with valid until date.
+                Enter the data in the request body.
+                Ex. {
+                “registration”:”sk345ru”,
+                “date”:”10.04.2025”
+                }
+                The date value must be entered in this pattern dd.mm.yyyy
+                To use this service, you are going to need authorization.
+                For this purpose, go to service 5 to generate a jwt token
+                Registration code must be unique
+                If the same registration code exists in database, the entry won’t be created
+                As a response the user will get message whether or not the registration entry was successfully created</p>
+            <li><strong>http://localhost:8080/registration-api/statistics/accountID</strong></li>
+            <p>GET request POST request POST request
+                This service returns all the accountIds with a number of registrations.
+                This is authorized request, so to use this service use service 5 first,to generate token.
+                Every authorized user can see all the accounts in the database with the number of
+                Registrations for each user.</p>
+            <li><strong>http://localhost:8080/registration-api/statistics/accountID</strong></li>
+            <p>GET request
+                This service performs a check if a registration is still valid or expired.
+                In the request body send the registration code that you want to check
+                Ex. {
+                “registration”:”sk987ru”
+                }
+                The response will contain a message about the validity of this registration
+                This is not authorized request and you don’t need a token for this service</p>
+            <li><strong>http://localhost:8080/registration-api/authenticate</strong></li>
+            <p>POST request
+                To generate a token, you must provide accountId and password.
+                For this purpose use the password that you received when you created an account
+                Send the data in the request body
+                Ex. {
+                “accountId”:test@corvus.com,
+                “password”:”Yh56jmmK”
+                }
+                In the response you will recieve a token that you can use for the authorized requests
+                The generated token expires in 10 minutes</p>
+            </ol>
+
+            </p>
+        </div>
+    </div>
 </body>
 </html>

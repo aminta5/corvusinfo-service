@@ -1,6 +1,7 @@
 package com.corvusinfo.registrationapi.model;
 
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @Data
 public class Account {
     @Id
-    @Column
+    @NotNull
     private String accountId;
 
     @Column
