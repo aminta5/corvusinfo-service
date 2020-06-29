@@ -2,6 +2,7 @@ package com.corvusinfo.registrationapi.controllers;
 
 import com.corvusinfo.registrationapi.convertors.AccountToAccountResponse;
 import com.corvusinfo.registrationapi.dto.AccountResponse;
+import com.corvusinfo.registrationapi.exceptionsHandler.customExceptions.NonValidAccountException;
 import com.corvusinfo.registrationapi.model.Account;
 import com.corvusinfo.registrationapi.services.AccountService;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public class AccountController {
     }
 
     @PostMapping(path="/account")
-    public ResponseEntity<AccountResponse> createAccount(@RequestBody Account id){
+    public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody Account id){
         AccountResponse response = converter.convert(accountService.saveAccount(id));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

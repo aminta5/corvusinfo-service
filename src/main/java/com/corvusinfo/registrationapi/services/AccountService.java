@@ -28,15 +28,8 @@ public class AccountService {
     }
 
     public  Account saveAccount(Account id){
-        List<Account> accounts = new ArrayList<>();
-        accountRepository.findAll().forEach(accounts::add);
-        Optional<Account> acc = accounts.stream().filter(a -> a.getAccountId().equals(id.getAccountId())).findFirst();
-        if(!acc.isPresent()){
-            id.setPassword(Helper.generatePassword());
-            return accountRepository.save(id);
-        }
-        return new Account();
-
+        id.setPassword(Helper.generatePassword());
+         return accountRepository.save(id);
     }
 
     public Account findAccountWithId(String id){

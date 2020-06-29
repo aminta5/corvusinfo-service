@@ -16,9 +16,17 @@ import java.time.LocalDate;
 public class Registration {
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String registration;
 
     @Column
     private LocalDate date;
+
+    public Registration(String registration, LocalDate date){
+        this.registration = registration;
+        this.date = date;
+    }
 }
