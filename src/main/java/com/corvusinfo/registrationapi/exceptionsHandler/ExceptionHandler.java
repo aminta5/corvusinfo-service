@@ -1,11 +1,14 @@
 package com.corvusinfo.registrationapi.exceptionsHandler;
 
+import com.corvusinfo.registrationapi.exceptionsHandler.customExceptions.InvalidUserOrPasswordException;
 import com.corvusinfo.registrationapi.exceptionsHandler.customExceptions.NonValidAccountException;
 import com.corvusinfo.registrationapi.exceptionsHandler.customExceptions.RegistrationNotFoundException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -49,11 +52,22 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidUserOrPasswordException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidUserOrPasswordException(InvalidUserOrPasswordException e, WebRequest request){
+        ExceptionResponse response = new ExceptionResponse(e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
    /* @org.springframework.web.bind.annotation.ExceptionHandler(NonValidAccountException.class)
     public final ResponseEntity<ExceptionResponse> handleAccountNotValidException(NonValidAccountException e, WebRequest request){
         ExceptionResponse response = new ExceptionResponse(e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }*/
 
-
+    //@ResponseStatus(HttpStatus.FORBIDDEN)
+    /*@org.springframework.web.bind.annotation.ExceptionHandler(ExpiredJwtException.class)
+    public final ResponseEntity<String[]> handleTokenExpiredException(ExpiredJwtException e){
+        Throwable exception = e.getCause();
+        return new ResponseEntity<>(new String[]{exception.getCause().getMessage()}, HttpStatus.UNAUTHORIZED);
+    }*/
 }
